@@ -1,54 +1,48 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
+import Form from './Form/Form';
+import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 
 class App extends Component {
   state = {
-    contacts: [],
-    name: '',
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+
+    filter: '',
   };
-  addName = name => {
-    console.log(name);
+  addName = data => {
+    console.log(data);
     const contact = {
       id: shortid.generate(),
-      name,
+      name: data.name,
+      number: data.number,
     };
     this.setState(prevState => ({
       contacts: [contact, ...prevState.contacts],
     }));
   };
 
-  handleChange = e => {
-    this.setState({ name: e.currentTarget.value });
-  };
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log(this.state);
-    this.addName(this.state.name);
-    this.setState({ name: '' });
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
   };
 
   render() {
+    const normalizeFilter = this.state.filter.toLowerCase();
+    const visibleContacts = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizeFilter)
+    );
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            onChange={this.handleChange}
-          />
-          <button type="submit">Save</button>
-        </form>
-
-        <ul>
-          {this.state.contacts.map(({ id, name }) => (
-            <li key={id}>
-              <p>{name}</p>
-            </li>
-          ))}
-        </ul>
+        <h1>Phonebook</h1>
+        <Form onSubmitForm={this.addName} />
+        <h2>Contacts</h2>
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
+        <ContactList contacts={visibleContacts} />
       </div>
     );
   }
