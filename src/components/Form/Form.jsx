@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { Input, Label, Btn, Container } from './Form.styled';
 class Form extends Component {
   state = {
     name: '',
     number: '',
   };
-  handelInputChange = event => {
-    this.setState({ [event.target.name]: event.currentTarget.value });
+  handelInputChange = e => {
+    this.setState({ [e.target.name]: e.currentTarget.value });
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -14,11 +16,12 @@ class Form extends Component {
 
     this.setState({ name: '', number: '' });
   };
+
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>Name</label>
-        <input
+      <Container onSubmit={this.handleSubmit}>
+        <Label>Name</Label>
+        <Input
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -28,8 +31,8 @@ class Form extends Component {
           value={this.state.name}
         />
 
-        <label>Number</label>
-        <input
+        <Label>Number</Label>
+        <Input
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -39,10 +42,16 @@ class Form extends Component {
           value={this.state.number}
         />
 
-        <button type="submit">Add contact</button>
-      </form>
+        <Btn type="submit">Add contact</Btn>
+      </Container>
     );
   }
 }
 
 export default Form;
+Form.propType = {
+  name: PropTypes.string,
+  number: PropTypes.string,
+  handelInputChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+};
