@@ -18,7 +18,6 @@ class App extends Component {
     filter: '',
   };
   addName = data => {
-    console.log(data);
     const contact = {
       id: shortid.generate(),
       name: data.name,
@@ -74,9 +73,9 @@ export default App;
 App.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ),
   filter: PropTypes.string,

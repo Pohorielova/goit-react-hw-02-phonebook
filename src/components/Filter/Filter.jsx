@@ -1,5 +1,6 @@
 import { Box } from 'components/Box';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Input, Label } from './Filter.styled';
 
 const Filter = ({ value, onChange }) => (
@@ -9,3 +10,7 @@ const Filter = ({ value, onChange }) => (
   </Box>
 );
 export default Filter;
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

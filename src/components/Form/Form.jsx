@@ -11,7 +11,7 @@ class Form extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+
     this.props.onSubmitForm(this.state);
 
     this.setState({ name: '', number: '' });
@@ -50,8 +50,8 @@ class Form extends Component {
 
 export default Form;
 Form.propType = {
-  name: PropTypes.string,
-  number: PropTypes.string,
-  handelInputChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  handelInputChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
