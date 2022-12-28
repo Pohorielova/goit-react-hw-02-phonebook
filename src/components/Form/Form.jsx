@@ -50,7 +50,7 @@ class Form extends Component {
 
 export default Form;
 Form.propType = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
